@@ -99,3 +99,19 @@ npm run dev
 7. (one time)in page.tsx remove all and type rafce , remove not needed css in global.css
 
 8. for database connection , create folder lib , under that create models,actions folder and connect.tsx
+
+9. login with mongodb account , create cluster
+https://cloud.mongodb.com/v2/68259c65ba5481614acb2562#/clusters 
+
+10. Under network access section , change it to for access list entry
+0.0.0.0/0
+
+11.under database access , create user ranjennaidu2022 with password , role read and write any database
+
+12. go to cluster , connect , select compass, copy the connection string into the mongodb url in .env,
+you will keep the database password here, so dont share
+
+
+
+
+
