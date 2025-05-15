@@ -34,3 +34,68 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+====
+
+1. go inside vendor/code folder , open cmd and enter following
+npx create-next-app@latest ./
+
+C:\code\Demo\NextJS\vendor\code>npx create-next-app@latest ./
+√ Would you like to use TypeScript? ...  Yes
+√ Would you like to use ESLint? ...  Yes
+√ Would you like to use Tailwind CSS? ...  Yes
+√ Would you like your code inside a `src/` directory? ... No 
+√ Would you like to use App Router? (recommended) ... Yes
+√ Would you like to use Turbopack for `next dev`? ... Yes
+√ Would you like to customize the import alias (`@/*` by default)? ... No 
+Creating a new Next.js app in C:\code\Demo\NextJS\vendor\code.
+
+
+2. go inside code open in vs
+code .
+
+3. install following extensions in vs code
+> Auto Import
+> Auto Rename Tag
+> Catppuccin for VSCode
+> Code Spell Checker
+> Color Highlight
+> ES7+ React/Redux/React-Native snippets
+> ESLint
+> Highlight Matching Tag
+> Tailwind CSS IntelliSense
+> Template String Converter
+> TODO Highlight
+> vscode-icons
+
+
+4. in terminal git bash in vscode , install all required packages
+npm install
+
+
+5. Install depedencies
+5.1 Mantine UI
+https://mantine.dev/guides/next/
+select hooks, core,form,dates,modals
+
+npm install @mantine/core @mantine/hooks @mantine/form @mantine/dates dayjs @mantine/modals
+
+5.2 MUI UI
+https://mui.com/material-ui/getting-started/installation/
+
+5.3
+npm i @mui/icons-material@latest 
+
+5.4
+npm i @mui/x-data-grid
+
+5.5
+npm i bcrypt cloudinary dayjs jodit-react jsonwebtoken moment mongoose react-icons recharts slugify sonner
+
+6. run the project
+npm run dev
+
+7. (one time)in page.tsx remove all and type rafce , remove not needed css in global.css
+
+8. for database connection , create folder lib , under that create models,actions folder and connect.tsx
