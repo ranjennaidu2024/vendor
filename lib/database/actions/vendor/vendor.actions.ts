@@ -1,7 +1,7 @@
 "use server";
 import mongoose from "mongoose";
 import Vendor from "../../models/vendor.model";
-import { connectToDatabase } from "./../../connect";
+import { connectToDatabase } from "../../connect";
 import { cookies } from "next/headers";
 const jwt = require("jsonwebtoken");
 const { ObjectId } = mongoose.Types;
