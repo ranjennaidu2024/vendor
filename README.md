@@ -112,6 +112,29 @@ https://cloud.mongodb.com/v2/68259c65ba5481614acb2562#/clusters
 you will keep the database password here, so dont share
 
 
+13. details to save in .env file
+MONGODB_URL=mongodb+srv://<username>:<password>@ranjenclusterdev.9jwtkqh.mongodb.net/
+JWT_SECRET=<randomly generated jwt secret>
+JWT_EXPIRY="5d"
 
 
+14. create cloudinary account using github
+https://console.cloudinary.com/
+then go to home>dashboard>Go to API Keys
+then add the following in the .env file
+CLOUDINARY_NAME=
+CLOUDINARY_SECRET=
+CLOUDINARY_API_KEY=
 
+CLOUDINARY_URL=cloudinary://<your_api_key>:<your_api_secret>@<cloudinary_name>
+
+15. In the cloudinary console go to settings>upload presets and Add Upload Presets
+usigned mode with name it as website then make sure settings like this:
+
+overwrite:false
+use filename:false
+unique filename:false
+use filename as display name:true
+use asset folder as public id prefix:false
+type:upload
+asset folder:website
