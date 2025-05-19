@@ -138,3 +138,10 @@ use filename as display name:true
 use asset folder as public id prefix:false
 type:upload
 asset folder:website
+
+16. Download MongoDb Compass for GUI DB
+https://www.mongodb.com/try/download/compass
+
+
+17. Take note in the passsword under env
+@ is a special character in URLs, and it must be encoded as %40
