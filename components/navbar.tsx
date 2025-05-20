@@ -1,7 +1,7 @@
 "use client";
 import { Button, Group } from "@mantine/core";
 import { useRouter } from "next/navigation";
-//import { logout } from "@/lib/database/actions/vendor/auth/logout";
+import { logout } from "@/lib/database/actions/vendor/auth/logout";
 import { useEffect, useState } from "react";
 import { getVendorCookiesandFetchVendor } from "@/lib/database/actions/vendor/vendor.actions";
 
@@ -44,7 +44,7 @@ const Navbar = () => {
               </Button>
               <Button
                 onClick={() => {
-                  //logout();
+                  logout();
                   router.refresh();
                 }}
               >
