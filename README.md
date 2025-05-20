@@ -145,3 +145,7 @@ https://www.mongodb.com/try/download/compass
 
 17. Take note in the passsword under env
 @ is a special character in URLs, and it must be encoded as %40
+
+18. If want to know about the charts usage in the dashboard can refer to
+https://recharts.org/en-US 
+
