@@ -149,3 +149,17 @@ https://www.mongodb.com/try/download/compass
 18. If want to know about the charts usage in the dashboard can refer to
 https://recharts.org/en-US 
 
+19. Mantines Modal Manager to refer for deletion confirm box UI
+https://mantine.dev/x/modals/ 
+
+
+
+20. fixes done
+20.1 category.actions.ts changed from public_url changed to public_id 
+    // fix public_url changed to public_id 
+    const imagePublicIds = category.images.map(
+      (image: any) => image.public_id
+    );
+
+20.2  Make sure in code there is nothing exist as CLOUNDINARY , it should be CLOUDINARY as used in the env
+

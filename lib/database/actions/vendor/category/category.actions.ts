@@ -8,7 +8,7 @@ import { base64ToBuffer } from "@/utils";
 // config out cloudinary
 cloudinary.v2.config({
   cloud_name: process.env.CLOUDINARY_NAME,
-  api_key: process.env.CLOUNDINARY_API_KEY,
+  api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
@@ -70,8 +70,9 @@ export const deleteCategory = async (id: string) => {
         success: false,
       };
     }
+    // fix public_url changed to public_id 
     const imagePublicIds = category.images.map(
-      (image: any) => image.public_url
+      (image: any) => image.public_id
     );
     const deleteImagePromises = imagePublicIds.map((publicId: string) =>
       cloudinary.v2.uploader.destroy(publicId)
