@@ -29,7 +29,7 @@ export const getProductAnalytics = async () => {
   }
 };
 
-// get product size analytics for vendor
+// codefix- get product size analytics for vendor
 export const sizeAnalytics = async () => {
   try {
     await connectToDatabase();
@@ -37,12 +37,15 @@ export const sizeAnalytics = async () => {
     const products = await Product.find({
       "vendor._id": vendor?.id,
     });
+
     if (!products) {
       return {
         message: "Vendor Id is invalid!",
         success: false,
       };
     }
+
+    // Use reduce with an initial value of an empty object
     const individualSizeAnalytics = products.reduce(
       (acc: any, product: any) => {
         product.subProducts.forEach((subProduct: any) => {
@@ -55,12 +58,15 @@ export const sizeAnalytics = async () => {
           });
         });
         return acc;
-      }
+      },
+      {} // Initial value is an empty object
     );
+
     const sizeData = Object.keys(individualSizeAnalytics).map((size) => ({
       name: size,
       value: individualSizeAnalytics[size],
     }));
+
     return JSON.parse(JSON.stringify(sizeData));
   } catch (error: any) {
     console.log(error);
