@@ -1,3 +1,4 @@
+//own code fix done this
 "use server";
 
 import { connectToDatabase } from "@/lib/database/connect";
@@ -5,6 +6,21 @@ import Coupon from "@/lib/database/models/coupon.model";
 import Vendor from "@/lib/database/models/vendor.model";
 import mongoose from "mongoose";
 const { ObjectId } = mongoose.Types;
+
+// Helper to convert ObjectIds to strings recursively in coupon objects
+function convertCouponObjectIds(coupon: any) {
+  return {
+    ...coupon,
+    _id: coupon._id.toString(),
+    vendor: coupon.vendor
+      ? {
+          ...coupon.vendor,
+          _id: coupon.vendor._id.toString(),
+        }
+      : null,
+    // Add any other ObjectId fields here if needed
+  };
+}
 
 // create a coupon for vendor
 export const createCoupon = async (
@@ -15,20 +31,19 @@ export const createCoupon = async (
   vendorId: string
 ) => {
   try {
-    console.log(vendorId);
     await connectToDatabase();
 
-    const vendor = await Vendor.findById(vendorId);
+    const vendor = await Vendor.findById(vendorId).lean();
     if (!vendor) {
       return {
         message: "Vendor Id is invalid!",
         success: false,
       };
     }
-    const test = await Coupon.findOne({ coupon });
+    const test = await Coupon.findOne({ coupon }).lean();
     if (test) {
       return {
-        message: "Coupon already exits, try a different coupon name.",
+        message: "Coupon already exists, try a different coupon name.",
         success: false,
       };
     }
@@ -42,16 +57,25 @@ export const createCoupon = async (
 
     const vendorCoupons = await Coupon.find({
       "vendor._id": vendorId,
-    }).sort({
-      updateAt: -1,
-    });
+    })
+      .lean()
+      .sort({
+        updatedAt: -1,
+      });
+
+    const plainCoupons = vendorCoupons.map(convertCouponObjectIds);
+
     return {
       message: `Coupon ${coupon} has been successfully created.`,
-      coupon: JSON.parse(JSON.stringify(vendorCoupons)),
+      coupon: plainCoupons,
       success: true,
     };
   } catch (error: any) {
     console.log(error);
+    return {
+      message: "Error creating coupon.",
+      success: false,
+    };
   }
 };
 
@@ -68,7 +92,7 @@ export const deleteCoupon = async (couponId: string, vendorId: string) => {
         success: false,
       };
     }
-    const vendor = await Vendor.findById(vendorObjectId);
+    const vendor = await Vendor.findById(vendorObjectId).lean();
     if (!vendor) {
       return {
         message: "Vendor Id is invalid!",
@@ -77,16 +101,25 @@ export const deleteCoupon = async (couponId: string, vendorId: string) => {
     }
     const vendorCoupons = await Coupon.find({
       "vendor._id": vendorObjectId,
-    }).sort({
-      updateAt: -1,
-    });
+    })
+      .lean()
+      .sort({
+        updatedAt: -1,
+      });
+
+    const plainCoupons = vendorCoupons.map(convertCouponObjectIds);
+
     return {
       message: "Successfully deleted!",
-      coupons: vendorCoupons,
+      coupons: plainCoupons,
       success: true,
     };
   } catch (error: any) {
     console.log(error);
+    return {
+      message: "Error deleting coupon.",
+      success: false,
+    };
   }
 };
 
@@ -117,16 +150,25 @@ export const updateCoupon = async (
     }
     const vendorCoupons = await Coupon.find({
       "vendor._id": vendorObjectId,
-    }).sort({
-      updateAt: -1,
-    });
+    })
+      .lean()
+      .sort({
+        updatedAt: -1,
+      });
+
+    const plainCoupons = vendorCoupons.map(convertCouponObjectIds);
+
     return {
       message: "Successfully updated!",
-      coupons: vendorCoupons,
+      coupons: plainCoupons,
       success: true,
     };
   } catch (error: any) {
     console.log(error);
+    return {
+      message: "Error updating coupon.",
+      success: false,
+    };
   }
 };
 
@@ -137,20 +179,28 @@ export const getAllCoupons = async (vendorId: string) => {
 
     const vendorObjectId = new ObjectId(vendorId);
     const coupons = await Coupon.find({ "vendor._id": vendorObjectId })
-      .sort({ updatedAt: -1 })
-      .lean();
-    if (!coupons) {
+      .lean()
+      .sort({ updatedAt: -1 });
+
+    if (!coupons || coupons.length === 0) {
       return {
         message: "No Vendor or created vendor coupon found with this Id!",
         success: false,
       };
     }
+
+    const plainCoupons = coupons.map(convertCouponObjectIds);
+
     return {
-      coupons: JSON.parse(JSON.stringify(coupons)),
+      coupons: plainCoupons,
       message: "Successfully fetched vendor coupons",
       success: true,
     };
   } catch (error: any) {
     console.log(error);
+    return {
+      message: "Error fetching coupons.",
+      success: false,
+    };
   }
 };
